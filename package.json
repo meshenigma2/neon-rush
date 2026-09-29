@@ -1,27 +1,25 @@
 {
-  "name": "car-racing",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
-  },
-  "dependencies": {
-    "next": "16.3.6",
-    "react": "19.2.8",
-    "react-dom": "19.2.8"
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.3.6",
-    "tailwindcss": "^4",
-    "typescript": "^5"
-  },
-  "packageManager": "pnpm@12.6.0"
+    "name":  "neon-rush-workspace",
+    "version":  "0.0.0",
+    "private":  true,
+    "scripts":  {
+                    "build":  "pnpm -r run build",
+                    "typecheck":  "pnpm -r run typecheck",
+                    "lint":  "pnpm -r run lint",
+                    "dev":  "pnpm -r run dev",
+                    "test":  "pnpm -r run test",
+                    "audit":  "pnpm audit",
+                    "format":  "prettier --write ."
+                },
+    "pnpm":  {
+                 "onlyBuiltDependencies":  [
+                                               "esbuild",
+                                               "unrs-resolver",
+                                               "sharp"
+                                           ]
+             },
+    "devDependencies":  {
+                            "@playwright/test":  "^1.63.0",
+                            "prettier":  "^3.9.9"
+                        }
 }
