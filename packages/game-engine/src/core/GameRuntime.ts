@@ -91,6 +91,11 @@ export class GameRuntime implements GameEngine {
   }
 
   public restart(): void {
+    if (this.animationFrameId !== null) {
+      cancelAnimationFrame(this.animationFrameId);
+      this.animationFrameId = null;
+    }
+
     this.score = 0;
     this.distanceMeters = 0;
     this.playerZ = 0;
@@ -98,11 +103,26 @@ export class GameRuntime implements GameEngine {
     
     this.roadManager.dispose();
     this.roadManager = new RoadManager(this.renderer);
+
+    this.environmentManager.dispose();
+    this.environmentManager = new EnvironmentManager(this.renderer);
     
     this.playerController.reset();
     this.trafficManager.reset();
     
     this.start();
+  }
+
+  public setCarColor(hexColor: number): void {
+    this.playerController.setCarColor(hexColor);
+  }
+
+  public setTimeOfDay(time: 'DAY' | 'EVENING' | 'NIGHT'): void {
+    this.renderer.setTimeOfDay(time);
+  }
+  
+  public setMuted(muted: boolean): void {
+    // audioManager.setMuted(muted) if implemented
   }
 
   public destroy(): void {
@@ -128,18 +148,20 @@ export class GameRuntime implements GameEngine {
 
   private gameLoop(timeMs: number): void {
     if (this.state === 'MENU' || this.state === 'PAUSED') return;
-    if (this.state === 'COUNTDOWN') {
-      this.animationFrameId = requestAnimationFrame(this.gameLoop);
-      this.render();
-      return;
-    }
     
     this.animationFrameId = requestAnimationFrame(this.gameLoop);
+
+    if (this.state === 'COUNTDOWN' || this.state === 'CRASHED') {
+      this.render();
+      if (this.state === 'CRASHED') {
+          this.playerController.resetSpeed();
+      }
+      return;
+    }
 
     let deltaSeconds = (timeMs - this.lastTimeMs) / 1000;
     this.lastTimeMs = timeMs;
     deltaSeconds = Math.min(deltaSeconds, GAME_CONFIG.engine.maxDeltaSeconds);
-
     
     this.update(deltaSeconds, timeMs);
     this.render();
@@ -198,6 +220,9 @@ export class GameRuntime implements GameEngine {
     this.renderer.render();
   }
 }
+
+
+
 
 
 

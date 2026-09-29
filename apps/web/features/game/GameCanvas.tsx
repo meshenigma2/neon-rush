@@ -14,6 +14,7 @@ export function GameCanvas() {
     handlePause,
     handleResume,
     handleRestart,
+    engine,
   } = useGameSession();
 
   if (error) {
@@ -46,8 +47,11 @@ export function GameCanvas() {
           onPause={handlePause}
           onResume={handleResume}
           onRestart={handleRestart}
+          engine={engine}
         />
       )}
     </div>
   );
 }
+
+

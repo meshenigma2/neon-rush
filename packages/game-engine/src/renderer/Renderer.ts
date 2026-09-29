@@ -91,6 +91,28 @@ export class GameRenderer {
     this.dirLight.target.updateMatrixWorld();
   }
 
+  public setTimeOfDay(time: 'DAY' | 'EVENING' | 'NIGHT'): void {
+    if (time === 'DAY') {
+      this.scene.background = new THREE.Color(0x88bbff);
+      this.scene.fog = new THREE.Fog(0x88bbff, 50, 400);
+      this.dirLight.color.setHex(0xffffff);
+      this.dirLight.intensity = 3.0;
+      this.dirLight.position.set(50, 150, -50);
+    } else if (time === 'EVENING') {
+      this.scene.background = new THREE.Color(0xff7744);
+      this.scene.fog = new THREE.Fog(0xff7744, 20, 300);
+      this.dirLight.color.setHex(0xffeedd);
+      this.dirLight.intensity = 2.5;
+      this.dirLight.position.set(150, 40, -50);
+    } else if (time === 'NIGHT') {
+      this.scene.background = new THREE.Color(0x050511);
+      this.scene.fog = new THREE.Fog(0x050511, 20, 250);
+      this.dirLight.color.setHex(0x5566aa);
+      this.dirLight.intensity = 0.5;
+      this.dirLight.position.set(50, 100, -50);
+    }
+  }
+
   public handleResize(width: number, height: number): void {
     this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
@@ -106,3 +128,4 @@ export class GameRenderer {
     this.renderer.dispose();
   }
 }
+

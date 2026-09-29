@@ -96,5 +96,8 @@ export function useGameSession() {
     handlePause,
     handleResume,
     handleRestart,
+    engine: engineRef.current,
   };
 }
+
+

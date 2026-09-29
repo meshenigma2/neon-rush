@@ -6,6 +6,7 @@ import { InputManager } from '../core/InputManager';
 export class PlayerController {
   private scene: THREE.Scene;
   private mesh: THREE.Group;
+  private bodyMat!: THREE.MeshPhysicalMaterial;
   
   private targetLaneIndex: number;
   private currentX: number;
@@ -23,7 +24,7 @@ export class PlayerController {
     this.mesh = new THREE.Group();
     
     // Vibrant sports car paint!
-    const bodyMat = new THREE.MeshPhysicalMaterial({ 
+    this.bodyMat = new THREE.MeshPhysicalMaterial({ 
       color: 0xcc2222, 
       roughness: 0.1, 
       metalness: 0.8,
@@ -48,7 +49,7 @@ export class PlayerController {
       return p;
     };
 
-    const chassis = createPart(new THREE.BoxGeometry(1.8, 0.5, 4.0), bodyMat, 0.35);
+    const chassis = createPart(new THREE.BoxGeometry(1.8, 0.5, 4.0), this.bodyMat, 0.35);
     this.mesh.add(chassis);
 
     const cabin = createPart(new THREE.BoxGeometry(1.4, 0.5, 2.0), glassMat, 0.85);
@@ -56,11 +57,11 @@ export class PlayerController {
     this.mesh.add(cabin);
 
     const mirrorGeo = new THREE.BoxGeometry(0.3, 0.2, 0.2);
-    const mirrorL = createPart(mirrorGeo, bodyMat, 0.7);
+    const mirrorL = createPart(mirrorGeo, this.bodyMat, 0.7);
     mirrorL.position.set(-0.95, 0.7, -0.4);
     this.mesh.add(mirrorL);
     
-    const mirrorR = createPart(mirrorGeo, bodyMat, 0.7);
+    const mirrorR = createPart(mirrorGeo, this.bodyMat, 0.7);
     mirrorR.position.set(0.95, 0.7, -0.4);
     this.mesh.add(mirrorR);
 
@@ -82,16 +83,16 @@ export class PlayerController {
     tlR.position.set(0.55, 0.45, 2.01);
     this.mesh.add(tlR);
 
-    const spoilerBase = createPart(new THREE.BoxGeometry(1.6, 0.05, 0.4), bodyMat, 0.9);
+    const spoilerBase = createPart(new THREE.BoxGeometry(1.6, 0.05, 0.4), this.bodyMat, 0.9);
     spoilerBase.position.z = 1.8;
     this.mesh.add(spoilerBase);
 
     const spoilerStrutGeo = new THREE.BoxGeometry(0.1, 0.3, 0.2);
-    const strutL = createPart(spoilerStrutGeo, bodyMat, 0.75);
+    const strutL = createPart(spoilerStrutGeo, this.bodyMat, 0.75);
     strutL.position.set(-0.6, 0.75, 1.8);
     this.mesh.add(strutL);
     
-    const strutR = createPart(spoilerStrutGeo, bodyMat, 0.75);
+    const strutR = createPart(spoilerStrutGeo, this.bodyMat, 0.75);
     strutR.position.set(0.6, 0.75, 1.8);
     this.mesh.add(strutR);
 
@@ -99,16 +100,34 @@ export class PlayerController {
     this.scene.add(this.mesh);
   }
 
+  public setCarColor(hexColor: number): void {
+    if (this.bodyMat) {
+      this.bodyMat.color.setHex(hexColor);
+    }
+  }
+
+  public resetSpeed(): void {
+    this.speedKph = 0;
+  }
+
   public update(deltaSeconds: number, input: InputManager, playerZ: number): number {
-    if (input.isActionActive('accelerate')) {
-      this.speedKph += GAME_CONFIG.gameplay.acceleration * deltaSeconds;
+    let maxSpeed = GAME_CONFIG.gameplay.maxSpeedKph;
+    let accel = GAME_CONFIG.gameplay.acceleration;
+
+    if (input.isActionActive('boost')) {
+      maxSpeed = 400;
+      accel = GAME_CONFIG.gameplay.acceleration * 3;
+    }
+
+    if (input.isActionActive('accelerate') || input.isActionActive('boost')) {
+      this.speedKph += accel * deltaSeconds;
     } else if (input.isActionActive('brake')) {
       this.speedKph -= GAME_CONFIG.gameplay.deceleration * deltaSeconds;
     } else {
       this.speedKph -= GAME_CONFIG.gameplay.naturalDeceleration * deltaSeconds;
     }
 
-    this.speedKph = Math.max(0, Math.min(this.speedKph, GAME_CONFIG.gameplay.maxSpeedKph));
+    this.speedKph = Math.max(0, Math.min(this.speedKph, maxSpeed));
 
     if (!this.isTransitioning) {
       if (input.isActionJustPressed('left') && this.targetLaneIndex > 0) {
@@ -169,6 +188,8 @@ export class PlayerController {
     this.scene.remove(this.mesh);
   }
 }
+
+
 
 
 

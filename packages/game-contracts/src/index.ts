@@ -25,6 +25,10 @@ export interface GameEngine {
   beginCountdown(): void;
   destroy(): void;
   getSnapshot(): GameSnapshot;
+  setCarColor(hexColor: number): void;
+  setTimeOfDay(time: 'DAY' | 'EVENING' | 'NIGHT'): void;
+  setMuted(muted: boolean): void;
 }
+
 
 

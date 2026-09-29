@@ -12,21 +12,21 @@ Create the monorepo/workspace and enforce engineering standards before gameplay 
 
 ### Tasks
 
-- [ ] Initialize repository/workspace.
-- [ ] Create `apps/web` Next.js application.
-- [ ] Create `packages/game-engine` package.
-- [ ] Create `packages/game-contracts` package if shared contracts are needed.
-- [ ] Configure TypeScript strict mode.
-- [ ] Configure ESLint.
-- [ ] Enable `@typescript-eslint/no-explicit-any` as an error.
-- [ ] Add explicit-return-type linting for public APIs where appropriate.
-- [ ] Configure formatting.
-- [ ] Configure unit-test framework.
-- [ ] Configure browser/E2E test framework.
-- [ ] Add typecheck/lint/test scripts.
-- [ ] Add dependency audit/security scripts.
-- [ ] Add the four project specification files.
-- [ ] Confirm game engine has no dependency on Next.js or React.
+- [x] Initialize repository/workspace.
+- [x] Create `apps/web` Next.js application.
+- [x] Create `packages/game-engine` package.
+- [x] Create `packages/game-contracts` package if shared contracts are needed.
+- [x] Configure TypeScript strict mode.
+- [x] Configure ESLint.
+- [x] Enable `@typescript-eslint/no-explicit-any` as an error.
+- [x] Add explicit-return-type linting for public APIs where appropriate.
+- [x] Configure formatting.
+- [x] Configure unit-test framework.
+- [x] Configure browser/E2E test framework.
+- [x] Add typecheck/lint/test scripts.
+- [x] Add dependency audit/security scripts.
+- [x] Add the four project specification files.
+- [x] Confirm game engine has no dependency on Next.js or React.
 
 ### Exit criteria
 
@@ -49,17 +49,17 @@ Create a standalone game runtime that can initialize against a browser canvas.
 
 ### Tasks
 
-- [ ] Create `GameEngine` public API.
-- [ ] Create game runtime lifecycle.
-- [ ] Add renderer abstraction.
-- [ ] Initialize Three.js renderer.
-- [ ] Initialize scene.
-- [ ] Initialize camera.
-- [ ] Add resize handling.
-- [ ] Add controlled animation loop.
-- [ ] Add delta-time clamping.
-- [ ] Add explicit game states.
-- [ ] Add initialization and destruction lifecycle.
+- [x] Create `GameEngine` public API.
+- [x] Create game runtime lifecycle.
+- [x] Add renderer abstraction.
+- [x] Initialize Three.js renderer.
+- [x] Initialize scene.
+- [x] Initialize camera.
+- [x] Add resize handling.
+- [x] Add controlled animation loop.
+- [x] Add delta-time clamping.
+- [x] Add explicit game states.
+- [x] Add initialization and destruction lifecycle.
 
 ### Exit criteria
 
@@ -75,14 +75,14 @@ Embed the standalone engine into the Next.js application without coupling the en
 
 ### Tasks
 
-- [ ] Create game route/page.
-- [ ] Create client-only `GameCanvas` host.
-- [ ] Create game loading state.
-- [ ] Create game initialization boundary.
-- [ ] Handle initialization failure.
-- [ ] Handle cleanup on route unmount.
-- [ ] Ensure React does not own frame-by-frame game state.
-- [ ] Add basic game-shell UI.
+- [x] Create game route/page.
+- [x] Create client-only `GameCanvas` host.
+- [x] Create game loading state.
+- [x] Create game initialization boundary.
+- [x] Handle initialization failure.
+- [x] Handle cleanup on route unmount.
+- [x] Ensure React does not own frame-by-frame game state.
+- [x] Add basic game-shell UI.
 
 ### Exit criteria
 
@@ -98,7 +98,7 @@ Create a reusable four-lane endless highway.
 
 ### Tasks
 
-- [ ] Define typed lane configuration.
+- [x] Define typed lane configuration.
 - [x] Create four lane positions.
 - [x] Create road segment abstraction.
 - [x] Create recyclable road segments.
@@ -366,13 +366,13 @@ Extend the control layer without altering desktop behavior.
 
 ### Tasks
 
-- [ ] Touch controls.
-- [ ] Swipe lane switching.
-- [ ] Mobile brake control.
-- [ ] Optional virtual controls.
-- [ ] Gamepad support.
-- [ ] Responsive HUD.
-- [ ] Device capability detection.
+- [x] Touch controls.
+- [x] Swipe lane switching.
+- [x] Mobile brake control.
+- [x] Optional virtual controls.
+- [x] Gamepad support.
+- [x] Responsive HUD.
+- [x] Device capability detection.
 
 ---
 
@@ -455,6 +455,9 @@ Keep these out of the active phase plan until explicitly prioritized:
 - [ ] Seasonal events.
 - [ ] Social sharing.
 - [ ] Advanced telemetry.
+
+
+
 
 
 
